@@ -4,10 +4,10 @@ Jinja2 Documentation:    https://jinja.palletsprojects.com/
 Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file contains the routes for your application.
 """
-
-from app import app
-from flask import render_template, request, redirect, url_for
-
+import os
+from app import app, db
+from flask import render_template, request, redirect, url_for, flash
+from app.models import propertyProfile
 
 ###
 # Routing for your application.
@@ -24,6 +24,10 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+@app.route('/properties/')
+def properties():
+    """Render the website's about page."""
+    return render_template('about.html', name="Mary Jane")
 
 ###
 # The functions below should be applicable to all Flask apps.
