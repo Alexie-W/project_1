@@ -10,6 +10,7 @@ from flask import render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from app.forms import propertyForm
 from app.models import propertyProfile
+from app.helper import get_uploaded_images
 from wtforms.validators import DataRequired
 
 ###
@@ -30,7 +31,9 @@ def about():
 @app.route('/properties/')
 def properties():
     """Render the website's properties page."""
-    return render_template('about.html', name="Mary Jane")
+    property_photo = get_uploaded_images()
+    print(property_photo)
+    return render_template('properties.html', property_photo=property_photo)
 
 @app.route('/properties/create', methods = ['GET', 'POST'])
 def NewProperty():

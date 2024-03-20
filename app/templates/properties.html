@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<h1 class="page-header">Properties</h1>
+
+<div>
+    {% for image_path in property_photo %}
+        <img src="/{{image_path}}" alt="properties">
+    {% endfor %}
+</div>
+
+{% endblock %}
+
