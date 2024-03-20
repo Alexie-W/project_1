@@ -7,7 +7,10 @@ This file contains the routes for your application.
 import os
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash
+from werkzeug.utils import secure_filename
+from app.forms import propertyForm
 from app.models import propertyProfile
+from wtforms.validators import DataRequired
 
 ###
 # Routing for your application.
@@ -26,8 +29,45 @@ def about():
 
 @app.route('/properties/')
 def properties():
-    """Render the website's about page."""
+    """Render the website's properties page."""
     return render_template('about.html', name="Mary Jane")
+
+@app.route('/properties/create', methods = ['GET', 'POST'])
+def NewProperty():
+    """Render New Property Pages."""
+    form = propertyForm()
+    
+    if form.validate_on_submit():
+        title = form.title.data
+        num_bedroom = form.num_bedroom.data
+        num_bathroom = form.num_bathroom.data
+        location = form.location.data
+        price = form.price.data
+        type = form.type.data
+        description = form.description.data
+        photo = form.photo.data
+        filename = secure_filename(photo.filename)
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        
+        new_property = propertyProfile(
+            title=title,
+            num_bedroom=num_bedroom,
+            num_bathroom=num_bathroom,
+            location=location,
+            price=price,
+            type=type,
+            description=description,
+            photo=photo.filename
+            )
+        
+        db.session.add(new_property)
+        db.session.commit()
+        
+        flash('Property Created', 'Success')
+        return redirect(url_for('properties'))
+    return render_template('New_Property.html', form=form)
+    
+    
 
 
 ###

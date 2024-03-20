@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{%block main %}
+    <h1> Property Form </h1>
+
+    <form action="{{ url_for('NewProperty') }}" method="POST" enctype="multipart/form-data">
+        {{form.csrf_token}}
+        <div>
+            {{form.title.label(class = "form-label")}}
+            {{form.title(class = "form-control")}}
+        </div>
+        <div>
+            {{form.num_bedroom.label(class = "form-label")}}
+            {{form.num_bedroom(class = "form-control")}}
+        </div>
+        <div>
+            {{form.num_bathroom.label(class = "form-label")}}
+            {{form.num_bathroom(class = "form-control")}}
+        </div>
+        <div>
+            {{form.location.label(class = "form-label")}}
+            {{form.location(class = "form-control")}}
+        </div>
+        <div>
+            {{form.price.label(class = "form-label")}}
+            {{form.price(class = "form-control")}}
+        </div>
+        <div>
+            {{form.type.label(class = "form-label")}}
+            {{form.type(class = "form-control")}}
+        </div>
+        <div>
+            {{form.description.label(class = "form-label")}}
+            {{form.description(class = "form-control")}}
+        </div>
+        <div>
+            {{form.photo.label(class = "form-label")}}
+            {{form.photo(class = "form-control")}}
+        </div>
+
+        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{%endblock%}
